@@ -28,12 +28,12 @@
         state=directory
 
 - name: Configure application
-  copy: content={{ item.content }}
-        dest={{ tiler_config_home }}/{{ item.file }}
+  copy: content={{ item.value }}
+        dest={{ tiler_config_home }}/{{ item.key }}
         owner=root
         group=mmw
         mode=0750
-  with_items: tiler_config
+  with_dict: tiler_config
   notify:
     - Restart mmw-tiler
 
