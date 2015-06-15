@@ -13,6 +13,7 @@ import rest_framework.urls
 
 import apps.geocode.urls
 import apps.modeling.urls
+import apps.health_check.urls
 import apps.home.urls
 import apps.home.views
 import apps.water_balance.urls
@@ -26,6 +27,7 @@ router.register(r'users', apps.home.views.UserViewSet)
 urlpatterns = patterns(
     '',
     url(r'^', include(apps.home.urls)),
+    url(r'^health-check/', include(apps.health_check.urls)),
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include(rest_framework.urls,
                                namespace='rest_framework')),
