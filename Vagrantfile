@@ -90,8 +90,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     worker.vm.synced_folder "src/mmw", "/opt/app/"
 
-    if ENV["VAGRANT_ENV"].nil? || ENV["VAGRANT_ENV"] != "TEST"
-      worker.vm.synced_folder "/opt/rwd-data", "/opt/rwd-data"
+    begin
+        # Path to RWD data (ex. /media/passport/rwd-nhd)
+        # Set to /dev/null if you don't care about this feature.
+        worker.vm.synced_folder ENV.fetch("RWD_DATA", "/dev/null"), "/opt/rwd-data"
+    rescue KeyError
+        abort("ERROR: Environment variable 'RWD_DATA' undefined")
     end
 
     # Docker
